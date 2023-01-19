@@ -266,7 +266,6 @@
         }elseif($action=='view'){
             $sqlmain= "select * from doctor where docid='$id'";
             while ($row = $db->fetch_array($sqlmain))
-            $result= $database->query($sqlmain);
             $row=$result->fetch_assoc();
             $name=$row["docname"];
             $email=$row["docemail"];
