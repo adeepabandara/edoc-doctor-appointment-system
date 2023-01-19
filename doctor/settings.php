@@ -264,7 +264,8 @@
             </div>
             ';
         }elseif($action=='view'){
-            $sqlmain= "select * from doctor where docid='$id'";
+            
+            $sqlmain=$database->query( "select * from doctor where docid='$id'");
             while ($row = $db->fetch_array($sqlmain))
             $result= $database->query($sqlmain);
             $row=$result->fetch_assoc();
