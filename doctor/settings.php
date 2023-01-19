@@ -270,8 +270,12 @@
             $name=$row["docname"];
             $email=$row["docemail"];
             $spe=$row["specialties"];
+
+
+            
             
             $spcil_res= $database->query("select sname from specialties where id='$spe'");
+            while ($row = $db->fetch_array($spcil_res))
             $spcil_array= $spcil_res->fetch_assoc();
             $spcil_name=$spcil_array["sname"];
             $nic=$row['docnic'];
