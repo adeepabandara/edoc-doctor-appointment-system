@@ -92,7 +92,10 @@
 
             }elseif($utype=='d'){
                 //TODO
-                $checker = $database->query("select * from doctor where docemail='$email' and docpassword='$password'");
+                $stmt = $database->prepare("SELECT * FROM doctor WHERE docemail = ? AND docpassword = ?");
+                $stmt->bind_param("ss", $email, $password);
+                $stmt->execute();
+                $result = $stmt->get_result();
                 if ($checker->num_rows==1){
 
 
