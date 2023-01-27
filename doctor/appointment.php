@@ -113,16 +113,21 @@
                             Today's Date
                         </p>
                         <p class="heading-sub12" style="padding: 0;margin: 0;">
-                            <?php 
+                        <?php 
+  date_default_timezone_set('Asia/Kolkata');
+  $today = date('Y-m-d');
+  echo $today;
+  $stmt = $database->prepare("SELECT * FROM schedule 
+                              INNER JOIN appointment ON schedule.scheduleid=appointment.scheduleid 
+                              INNER JOIN patient ON patient.pid=appointment.pid 
+                              INNER JOIN doctor ON schedule.docid=doctor.docid  
+                              WHERE  doctor.docid=?");
+  $stmt->bind_param("i", $userid);
+  $stmt->execute();
+  $list110 = $stmt->get_result();
+  $stmt->close();
+?>
 
-                        date_default_timezone_set('Asia/Kolkata');
-
-                        $today = date('Y-m-d');
-                        echo $today;
-
-                        $list110 = $database->query("select * from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  doctor.docid=$userid ");
-
-                        ?>
                         </p>
                     </td>
                     <td width="10%">
