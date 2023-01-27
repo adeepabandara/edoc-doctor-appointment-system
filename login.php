@@ -54,9 +54,9 @@
             if ($utype=='p'){
                 //TODO
                 $stmt = $database->prepare("SELECT * FROM patient WHERE pemail = ? and ppassword = ?");
-$stmt->bind_param("ss", $email, $password);
-$stmt->execute();
-$checker = $stmt->get_result();
+                $stmt->bind_param("ss", $email, $password);
+                $stmt->execute();
+                $checker = $stmt->get_result();
                 if ($checker->num_rows==1){
 
 
@@ -72,7 +72,10 @@ $checker = $stmt->get_result();
 
             }elseif($utype=='a'){
                 //TODO
-                $checker = $database->query("select * from admin where aemail='$email' and apassword='$password'");
+                $stmt = $database->prepare("SELECT * FROM admin WHERE aemail = ? AND apassword = ?");
+                $stmt->bind_param("ss", $email, $password);
+                $stmt->execute();
+                $result = $stmt->get_result();
                 if ($checker->num_rows==1){
 
 
