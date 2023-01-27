@@ -382,8 +382,8 @@
         }
     
         }elseif($action=='drop'){
-            $title=$_GET["title"];
-            $docname=$_GET["doc"];
+            $title = filter_input(INPUT_GET, 'title', FILTER_SANITIZE_STRING);
+            $docname = filter_input(INPUT_GET, 'doc', FILTER_SANITIZE_STRING);
             
             echo '
             <div id="popup1" class="overlay">
@@ -393,19 +393,22 @@
                         <a class="close" href="appointment.php">&times;</a>
                         <div class="content">
                             You want to Cancel this Appointment?<br><br>
-                            Session Name: &nbsp;<b>'.substr($title,0,40).'</b><br>
-                            Doctor name&nbsp; : <b>'.substr($docname,0,40).'</b><br><br>
+                            Session Name: &nbsp;<b>'.htmlspecialchars(substr($title,0,40), ENT_QUOTES, 'UTF-8').'</b><br>
+                            Doctor name&nbsp; : <b>'.htmlspecialchars(substr($docname,0,40), ENT_QUOTES, 'UTF-8').'</b><br><br>
                             
                         </div>
                         <div style="display: flex;justify-content: center;">
-                        <a href="delete-appointment.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
-                        <a href="appointment.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
-
+                        <form method="post" action="delete-appointment.php">
+                        <input type="hidden" name="id" value="'.$id.'">
+                        <input class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;" type="submit" value="Yes">&nbsp;&nbsp;&nbsp;
+                        <a href="appointment.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;">No</button></a>
+                        </form>
                         </div>
                     </center>
             </div>
             </div>
-            '; 
+            ';
+        
         }elseif($action=='view'){
             $sqlmain= "select * from doctor where docid=?";
             $stmt = $database->prepare($sqlmain);
