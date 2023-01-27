@@ -408,14 +408,14 @@
             </div>
             ';
         }if($action=='edit'){
-    $stmt = $database->prepare("SELECT * FROM doctor WHERE docid=?");
-    $stmt->bind_param("s", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row=$result->fetch_assoc();
-    $name=$row["docname"];
-    $email=$row["docemail"];
-    $spe=$row["specialties"];
+            $stmt = $database->prepare("SELECT * FROM doctor WHERE docid=?");
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row=$result->fetch_assoc();
+            $name=$row["docname"];
+            $email=$row["docemail"];
+            $spe=$row["specialties"];
 }
             
             $spcil_res= $database->query("select sname from specialties where id='$spe'");
@@ -595,7 +595,7 @@
 
         }; }
 
-    }
+    
         ?>
 
 </body>
