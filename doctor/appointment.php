@@ -469,31 +469,32 @@
             </div>
             ';
         }elseif($action=='drop'){
-            $nameget=$_GET["name"];
-            $session=$_GET["session"];
-            $apponum=$_GET["apponum"];
-            echo '
-            <div id="popup1" class="overlay">
-                    <div class="popup">
-                    <center>
-                        <h2>Are you sure?</h2>
-                        <a class="close" href="appointment.php">&times;</a>
-                        <div class="content">
-                            You want to delete this record<br><br>
-                            Patient Name: &nbsp;<b>'.substr($nameget,0,40).'</b><br>
-                            Appointment number &nbsp; : <b>'.substr($apponum,0,40).'</b><br><br>
-                            
-                        </div>
-                        <div style="display: flex;justify-content: center;">
-                        <a href="delete-appointment.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
-                        <a href="appointment.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
+$nameget=$_GET["name"];
+$session=$_GET["session"];
+$apponum=$_GET["apponum"];
+echo '
+<div id="popup1" class="overlay">
+<div class="popup">
+<center>
+<h2>Are you sure?</h2>
+<a class="close" href="appointment.php">×</a>
+<div class="content">
+You want to delete this record<br><br>
+Patient Name:  <b>'.substr(htmlspecialchars($nameget, ENT_QUOTES, 'UTF-8'),0,40).'</b><br>
+Appointment number   : <b>'.substr(htmlspecialchars($apponum, ENT_QUOTES, 'UTF-8'),0,40).'</b><br><br>
 
-                        </div>
-                    </center>
-            </div>
-            </div>
-            '; 
-        }elseif($action=='view'){
+
+                    </div>
+                    <div style="display: flex;justify-content: center;">
+                    <a href="delete-appointment.php?id='.htmlspecialchars($id, ENT_QUOTES, 'UTF-8').'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
+                    <a href="appointment.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
+
+                    </div>
+                </center>
+        </div>
+        </div>
+        '; 
+    }elseif($action=='view'){
             $sqlmain= "select * from doctor where docid= ?";
             $stmt = $database->prepare($sqlmain);
             $stmt->bind_param("i", $id);
