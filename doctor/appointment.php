@@ -494,18 +494,24 @@
             </div>
             '; 
         }elseif($action=='view'){
-            $sqlmain= "select * from doctor where docid='$id'";
-            $result= $database->query($sqlmain);
+            $sqlmain= "select * from doctor where docid= ?";
+            $stmt = $database->prepare($sqlmain);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result= $stmt->get_result();
             $row=$result->fetch_assoc();
             $name=$row["docname"];
             $email=$row["docemail"];
             $spe=$row["specialties"];
             
-            $spcil_res= $database->query("select sname from specialties where id='$spe'");
-            $spcil_array= $spcil_res->fetch_assoc();
+            $spcil_res= $database->prepare("select sname from specialties where id= ?");
+            $spcil_res->bind_param("i", $spe);
+            $spcil_res->execute();
+            $spcil_array= $spcil_res->get_result()->fetch_assoc();
             $spcil_name=$spcil_array["sname"];
             $nic=$row['docnic'];
-            $tele=$row['doctel'];
+            $tele=$row['doctel']; 
+
             echo '
             <div id="popup1" class="overlay">
                     <div class="popup">
