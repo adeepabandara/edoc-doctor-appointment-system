@@ -272,32 +272,33 @@
     </div>
     </div>
     <?php 
-    if($_GET){
-        
-        $id=$_GET["id"];
-        $action=$_GET["action"];
-        if($action=='drop'){
-            $nameget=$_GET["name"];
-            echo '
-            <div id="popup1" class="overlay">
-                    <div class="popup">
-                    <center>
-                        <h2>Are you sure?</h2>
-                        <a class="close" href="settings.php">&times;</a>
-                        <div class="content">
-                            You want to delete this record<br>('.substr($nameget,0,40).').
-                            
-                        </div>
-                        <div style="display: flex;justify-content: center;">
-                        <a href="delete-doctor.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
-                        <a href="settings.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
+if($_GET){
+    $id = $_GET["id"];
+    $action = $_GET["action"];
 
-                        </div>
-                    </center>
-            </div>
-            </div>
-            ';
-        }elseif($action=='view'){
+    if($action == 'drop'){
+        $nameget = $_GET["name"];
+        echo '
+        <div id="popup1" class="overlay">
+                <div class="popup">
+                <center>
+                    <h2>Are you sure?</h2>
+                    <a class="close" href="settings.php">&times;</a>
+                    <div class="content">
+                        You want to delete this record<br>('.substr($nameget,0,40).').
+                        
+                    </div>
+                    <div style="display: flex;justify-content: center;">
+                    <a href="delete-doctor.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
+                    <a href="settings.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
+
+                    </div>
+                </center>
+        </div>
+        </div>
+        ';
+    }
+}elseif($action=='view'){
             
             $stmt = $database->prepare("SELECT * FROM doctor WHERE docid=?");
             $stmt->bind_param("s", $id);
@@ -593,7 +594,7 @@
 
 
 
-        }; }
+        }; 
 
     
         ?>
