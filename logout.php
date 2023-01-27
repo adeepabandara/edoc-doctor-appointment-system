@@ -1,16 +1,18 @@
 <?php 
+session_start();
 
-	session_start();
+// Regenerate the session ID after a successful login
+session_regenerate_id(true);
 
-	$_SESSION = array();
+$_SESSION = array();
 
-	if (isset($_COOKIE[session_name()])) {
-		setcookie(session_name(), '', time()-86400, '/');
-	}
+if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time()-86400, '/');
+}
 
-	session_destroy();
+session_destroy();
 
-	// redirecting the user to the login page
-	header('Location: login.php?action=logout');
+// Redirecting the user to the login page
+header('Location: login.php?action=logout');
 
- ?>
+?>
