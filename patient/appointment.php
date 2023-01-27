@@ -355,12 +355,10 @@
         </div>
     </div>
     <?php
-    
     if($_GET){
-        $id=$_GET["id"];
-        $action=$_GET["action"];
+        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
         if($action=='booking-added'){
-            
             echo '
             <div id="popup1" class="overlay">
                     <div class="popup">
@@ -380,7 +378,9 @@
                     </center>
             </div>
             </div>
-            ';
+            ';   
+        }
+    
         }elseif($action=='drop'){
             $title=$_GET["title"];
             $docname=$_GET["doc"];
@@ -516,7 +516,7 @@
             </div>
             ';  
     }
-}
+
 
     ?>
     </div>
