@@ -318,6 +318,7 @@
             </div>
             </div>
             '; 
+            // Fixed By Adeepa
         }elseif($action=='view'){
             $stmt = $database->prepare("SELECT schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  where  schedule.scheduleid=?");
             $stmt->bind_param("i", $id);
@@ -330,13 +331,15 @@
             $scheduledate=$row["scheduledate"];
             $scheduletime=$row["scheduletime"];
         
-            
-           
+
             $nop=$row['nop'];
 
-
-            $sqlmain12= "select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.scheduleid=$id;";
-            $result12= $database->query($sqlmain12);
+            // Fixed By Adeepa
+            $sqlmain12 = "select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.scheduleid=?";
+            $stmt = $database->prepare($sqlmain12);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result12 = $stmt->get_result();
             echo '
             <div id="popup1" class="overlay">
                     <div class="popup" style="width: 70%;">
