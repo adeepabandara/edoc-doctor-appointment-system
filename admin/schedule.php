@@ -507,7 +507,7 @@
             </div>
             </div>
             '; 
-        }elseif($action=='view'){
+        } elseif($action=='view'){
             $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  where  schedule.scheduleid=$id";
             $result= $database->query($sqlmain);
             $row=$result->fetch_assoc();
@@ -516,8 +516,6 @@
             $title=$row["title"];
             $scheduledate=$row["scheduledate"];
             $scheduletime=$row["scheduletime"];
-            
-           
             $nop=$row['nop'];
 
 
@@ -571,11 +569,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                '.$scheduledate.'<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
+
                                     <label for="Tele" class="form-label">Scheduled Time: </label>
                                 </td>
                             </tr>
