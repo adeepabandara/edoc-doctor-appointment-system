@@ -298,6 +298,7 @@ if($_GET){
         </div>
         ';
     }
+
 }elseif($action=='view'){
             
             $stmt = $database->prepare("SELECT * FROM doctor WHERE docid=?");
