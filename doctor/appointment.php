@@ -447,7 +447,7 @@
             </div>
             ';
         }elseif($action=='session-added'){
-            $titleget=$_GET["title"];
+            $titleget = isset($_GET["title"]) ? $_GET["title"] : '';
             echo '
             <div id="popup1" class="overlay">
                     <div class="popup">
@@ -456,7 +456,7 @@
                         <h2>Session Placed.</h2>
                         <a class="close" href="schedule.php">&times;</a>
                         <div class="content">
-                        '.substr($titleget,0,40).' was scheduled.<br><br>
+                        ' . htmlspecialchars(substr($titleget,0,40)) . ' was scheduled.<br><br>
                             
                         </div>
                         <div style="display: flex;justify-content: center;">
