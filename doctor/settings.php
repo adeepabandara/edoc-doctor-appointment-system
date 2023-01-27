@@ -277,7 +277,7 @@ if($_GET){
     $action = $_GET["action"];
 
     if($action == 'drop'){
-        $nameget = $_GET["name"];
+        $nameget = htmlspecialchars($_GET["name"], ENT_QUOTES, 'UTF-8');
         echo '
         <div id="popup1" class="overlay">
                 <div class="popup">
