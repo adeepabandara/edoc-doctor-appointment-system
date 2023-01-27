@@ -51,64 +51,64 @@
     
         if($result->num_rows==1){
             $utype=$result->fetch_assoc()['usertype'];
-            if ($utype=='p'){
+            if ($utype == 'p') {
                 //TODO
                 $stmt = $database->prepare("SELECT * FROM patient WHERE pemail = ? and ppassword = ?");
                 $stmt->bind_param("ss", $email, $password);
                 $stmt->execute();
                 $checker = $stmt->get_result();
-                if ($checker->num_rows==1){
+                if ($checker->num_rows == 1) {
 
 
                     //   Patient dashbord
-                    $_SESSION['user']=$email;
-                    $_SESSION['usertype']='p';
-                    
+                    $_SESSION['user'] = $email;
+                    $_SESSION['usertype'] = 'p';
+
                     header('location: patient/index.php');
 
-                }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                } else {
+                    $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
                 }
-
-            }elseif($utype=='a'){
-                //TODO
-                $stmt = $database->prepare("SELECT * FROM admin WHERE aemail = ? AND apassword = ?");
-                $stmt->bind_param("ss", $email, $password);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if ($checker->num_rows==1){
-
-
-                    //   Admin dashbord
-                    $_SESSION['user']=$email;
-                    $_SESSION['usertype']='a';
-                    
-                    header('location: admin/index.php');
-
-                }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
-                }
-
-
-            }elseif($utype=='d'){
-                //TODO
-                $stmt = $database->prepare("SELECT * FROM doctor WHERE docemail = ? AND docpassword = ?");
-                $stmt->bind_param("ss", $email, $password);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if ($checker->num_rows==1){
-
-
-                    //   doctor dashbord
-                    $_SESSION['user']=$email;
-                    $_SESSION['usertype']='d';
-                    header('location: doctor/index.php');
-
-                }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
-                }
-
             }
+                elseif($utype=='a'){
+                    //TODO
+                    $stmt = $database->prepare("SELECT * FROM admin WHERE aemail = ? AND apassword = ?");
+                    $stmt->bind_param("ss", $email, $password);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    if ($result->num_rows==1){
+    
+    
+                        //   Admin dashbord
+                        $_SESSION['user']=$email;
+                        $_SESSION['usertype']='a';
+                        
+                        header('location: admin/index.php');
+    
+                    }else{
+                        $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                    }
+    
+    
+                }elseif($utype=='d'){
+                    //TODO
+                    $stmt = $database->prepare("SELECT * FROM doctor WHERE docemail = ? AND docpassword = ?");
+                    $stmt->bind_param("ss", $email, $password);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    if ($result->num_rows==1){
+    
+    
+                        //   doctor dashbord
+                        $_SESSION['user']=$email;
+                        $_SESSION['usertype']='d';
+                        header('location: doctor/index.php');
+    
+                    }else{
+                        $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                    }
+    
+                }
             
         }else{
             $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">We cant found any acount for this email.</label>';
