@@ -112,7 +112,6 @@
             </table>
         </div>
         <?php
-
                 $sqlmain= "select * from schedule inner join doctor on schedule.docid=doctor.docid where schedule.scheduledate>='$today'  order by schedule.scheduledate asc";
                 $sqlpt1="";
                 $insertkey="";
@@ -122,22 +121,21 @@
                         //print_r($_POST);
                         
                         if(!empty($_POST["search"])){
-                            /*TODO: make and understand */
-                            $keyword=$_POST["search"];
-                            $sqlmain= "select * from schedule inner join doctor on schedule.docid=doctor.docid where schedule.scheduledate>='$today' and (doctor.docname='$keyword' or doctor.docname like '$keyword%' or doctor.docname like '%$keyword' or doctor.docname like '%$keyword%' or schedule.title='$keyword' or schedule.title like '$keyword%' or schedule.title like '%$keyword' or schedule.title like '%$keyword%' or schedule.scheduledate like '$keyword%' or schedule.scheduledate like '%$keyword' or schedule.scheduledate like '%$keyword%' or schedule.scheduledate='$keyword' )  order by schedule.scheduledate asc";
-                            //echo $sqlmain;
+                            $keyword=filter_var($_POST["search"], FILTER_SANITIZE_STRING);
+                            $sqlmain= "select * from schedule inner join doctor on schedule.docid=doctor.docid where schedule.scheduledate>='$today' and (doctor.docname like ? or schedule.title like ? or schedule.scheduledate like ?)  order by schedule.scheduledate asc";
+                            $stmt = $database->prepare($sqlmain);
+                            $keyword = "%$keyword%";
+                            $stmt->bind_param("sss", $keyword, $keyword, $keyword);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
                             $insertkey=$keyword;
                             $searchtype="Search Result : ";
                             $q='"';
                         }
 
                     }
-
-
-                $result= $database->query($sqlmain)
-
-
                 ?>
+
                   
         <div class="dash-body">
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
