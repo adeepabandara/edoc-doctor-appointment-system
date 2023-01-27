@@ -272,12 +272,12 @@
     </div>
     </div>
     <?php 
-if($_GET){
-    $id = $_GET["id"];
-    $action = $_GET["action"];
+if(isset($_GET)){
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
     if($action == 'drop'){
-        $nameget = htmlspecialchars($_GET["name"], ENT_QUOTES, 'UTF-8');
+        $nameget = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_STRING);
         echo '
         <div id="popup1" class="overlay">
                 <div class="popup">
@@ -298,6 +298,7 @@ if($_GET){
         </div>
         ';
     }
+
 
 }elseif($action=='view'){
             
