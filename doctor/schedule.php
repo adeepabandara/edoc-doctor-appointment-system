@@ -293,31 +293,30 @@
         </div>
     </div>
     <?php
-    
-    if($_GET){
-        $id=$_GET["id"];
-        $action=$_GET["action"];
-        if($action=='drop'){
-            $nameget=$_GET["name"];
-            echo '
-            <div id="popup1" class="overlay">
-                    <div class="popup">
-                    <center>
-                        <h2>Are you sure?</h2>
-                        <a class="close" href="schedule.php">&times;</a>
-                        <div class="content">
-                            You want to delete this record<br>('.substr($nameget,0,40).').
-                            
-                        </div>
-                        <div style="display: flex;justify-content: center;">
-                        <a href="delete-session.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
-                        <a href="schedule.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
-
-                        </div>
-                    </center>
-            </div>
-            </div>
-            '; 
+   $id = intval($_GET["id"]);
+   $action = $_GET["action"];
+   if($action=='drop'){
+       $nameget = htmlspecialchars($_GET["name"]);
+       echo '
+       <div id="popup1" class="overlay">
+               <div class="popup">
+               <center>
+                   <h2>Are you sure?</h2>
+                   <a class="close" href="schedule.php">&times;</a>
+                   <div class="content">
+                       You want to delete this record<br>('.substr($nameget,0,40).').
+                       
+                   </div>
+                   <div style="display: flex;justify-content: center;">
+                   <a href="delete-session.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
+                   <a href="schedule.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
+   
+                   </div>
+               </center>
+       </div>
+       </div>
+       ';
+   
             // Fixed By Adeepa
         }elseif($action=='view'){
             $stmt = $database->prepare("SELECT schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  where  schedule.scheduleid=?");
@@ -334,13 +333,14 @@
 
             $nop=$row['nop'];
 
-            // Fixed By Adeepa
+   
             $sqlmain12 = "select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.scheduleid=?";
             $stmt = $database->prepare($sqlmain12);
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result12 = $stmt->get_result();
             echo '
+
             <div id="popup1" class="overlay">
                     <div class="popup" style="width: 70%;">
                     <center>
