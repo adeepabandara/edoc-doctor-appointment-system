@@ -53,7 +53,10 @@
             $utype=$result->fetch_assoc()['usertype'];
             if ($utype=='p'){
                 //TODO
-                $checker = $database->query("select * from patient where pemail='$email' and ppassword='$password'");
+                $stmt = $database->prepare("SELECT * FROM patient WHERE pemail = ? and ppassword = ?");
+$stmt->bind_param("ss", $email, $password);
+$stmt->execute();
+$checker = $stmt->get_result();
                 if ($checker->num_rows==1){
 
 
