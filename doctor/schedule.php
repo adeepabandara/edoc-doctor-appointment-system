@@ -120,7 +120,11 @@
                         $today = date('Y-m-d');
                         echo $today;
 
-                        $list110 = $database->query("select  * from  schedule where docid=$userid;");
+                        $query = "SELECT * FROM schedule WHERE docid = ?";
+                        $stmt = $database->prepare($query);
+                        $stmt->bind_param("i", $userid);
+                        $stmt->execute();
+                        $list110 = $stmt->get_result();
 
                         ?>
                         </p>
