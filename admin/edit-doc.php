@@ -19,11 +19,15 @@
         $tele=$_POST['Tele'];
         $password=$_POST['password'];
         $cpassword=$_POST['cpassword'];
-        $id=$_POST['id00'];
+        $id=htmlspecialchars($_POST['id00'], ENT_QUOTES);
         
         if ($password==$cpassword){
             $error='3';
-            $result= $database->query("select doctor.docid from doctor inner join webuser on doctor.docemail=webuser.email where webuser.email='$email';");
+            $stmt= $database->query("select doctor.docid from doctor inner join webuser on doctor.docemail=webuser.email where webuser.email=?;");
+            mysqli_stmt_bind_param($stmt, "ss", $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            
             //$resultqq= $database->query("select * from doctor where docid='$id';");
             if($result->num_rows==1){
                 $id2=$result->fetch_assoc()["docid"];
@@ -41,8 +45,11 @@
             }else{
 
                 //$sql1="insert into doctor(docemail,docname,docpassword,docnic,doctel,specialties) values('$email','$name','$password','$nic','$tele',$spec);";
-                $sql1="update doctor set docemail='$email',docname='$name',docpassword='$password',docnic='$nic',doctel='$tele',specialties=$spec where docid=$id ;";
-                $database->query($sql1);
+                $sql1="update doctor set docemail=?,docname=?,docpassword=?,docnic=? ,doctel=?,specialties=? where docid=? ;";
+                $stmt = $database->mysqli_prepare($sql1);
+                mysqli_stmt_bind_param($stmt, "ss", $email, $name, $password, $nic, $tele, $spec, $id);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
                 
                 $sql1="update webuser set email='$email' where email='$oldemail' ;";
                 $database->query($sql1);
