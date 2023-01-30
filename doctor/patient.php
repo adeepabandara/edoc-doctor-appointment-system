@@ -109,7 +109,7 @@
                         if(isset($_POST["search"])){
                             $keyword=$_POST["search12"];
                             
-                            $sqlmain= "select * from patient where pemail='$keyword' or pname='$keyword' or pname like '$keyword%' or pname like '%$keyword' or pname like '%$keyword%' ";
+                            $sqlmain= "select * from patient where pemail=? or pname=? or pname like ? or pname like ? or pname like ? ";
                             $selecttype="my";
                         }
                         
@@ -148,7 +148,10 @@
                             
                             <?php
                                 echo '<datalist id="patient">';
-                                $list11 = $database->query($sqlmain);
+                                $stmt = $database->mysql_prepare($sqlmain);
+                                mysqli_stmt_bind_param($stmt, "ss", $keyword);
+                                mysqli_stmt_execute($stmt);
+                                $list11 = mysql_stmt_get_result($stmt)
                                //$list12= $database->query("select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.docid=1;");
 
                                 for ($y=0;$y<$list11->num_rows;$y++){
@@ -271,7 +274,10 @@
                             <?php
 
                                 
-                                $result= $database->query($sqlmain);
+                                $stmt= $database->mysql_prepare($sqlmain);
+                                mysqli_stmt_bind_param($stmt, "ss", $keyword);
+                                mysqli_stmt_execute($stmt);
+                                $result = mysqli_stmt_get_result($stmt);
                                 //echo $sqlmain;
                                 if($result->num_rows==0){
                                     echo '<tr>
@@ -346,10 +352,14 @@
     <?php 
     if($_GET){
         
-        $id=$_GET["id"];
+        $id = htmlspecialchars($_GET["id"], ENT_QUOTES); 
         $action=$_GET["action"];
-            $sqlmain= "select * from patient where pid='$id'";
-            $result= $database->query($sqlmain);
+            $sqlmain= "select * from patient where pid= ?";
+            $stmt= $database->mysqli_prepare($sqlmain);
+            mysqli_stmt_bind_param($stmt, "ss", $id);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+       
             $row=$result->fetch_assoc();
             $name=$row["pname"];
             $email=$row["pemail"];
