@@ -208,7 +208,7 @@
                             <?php
 
                                 
-                                $stmt= $database->mysql_prepare($sqlmain);
+                                $stmt= $database->mysqli_prepare($sqlmain);
                                 mysqli_stmt_bind_param($stmt, "i", $id);
                                 mysqli_stmt_execute($stmt);
                                 $result = mysqli_stmt_get_result($stmt);
