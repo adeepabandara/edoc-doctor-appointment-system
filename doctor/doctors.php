@@ -304,14 +304,17 @@
             </div>
             ';
         }elseif($action=='view'){
-            $sqlmain= "select * from doctor where docid='$id'";
-            $result= $database->query($sqlmain);
+            $sqlmain= "select * from doctor where docid= ?";
+            $stmt= $database->mysql_prepare($sqlmain);
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
             $row=$result->fetch_assoc();
             $name=$row["docname"];
             $email=$row["docemail"];
             $spe=$row["specialties"];
             
-            $spcil_res= $database->query("select sname from specialties where id='$spe'");
+            $spcil_res= $database->mysql_prepare("select sname from specialties where id= ?");
             $spcil_array= $spcil_res->fetch_assoc();
             $spcil_name=$spcil_array["sname"];
             $nic=$row['docnic'];
