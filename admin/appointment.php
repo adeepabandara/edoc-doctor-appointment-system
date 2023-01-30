@@ -488,7 +488,7 @@
             </div>
             ';
         }elseif($action=='session-added'){
-            $titleget=$_GET["title"];
+            $titleget=htmlspecialchars($_GET["title"], ENT_QUOTES);
             echo '
             <div id="popup1" class="overlay">
                     <div class="popup">
@@ -510,7 +510,7 @@
             </div>
             ';
         }elseif($action=='drop'){
-            $nameget=$_GET["name"];
+            $nameget=htmlspecialchars($_GET["name"], ENT_QUOTES);
             $session=$_GET["session"];
             $apponum=$_GET["apponum"];
             echo '
@@ -535,8 +535,12 @@
             </div>
             '; 
         }elseif($action=='view'){
-            $sqlmain= "select * from doctor where docid='$id'";
-            $result= $database->query($sqlmain);
+            $sqlmain= "select * from doctor where docid=?";
+            $stmt= $database->mysqli_prepare($sqlmain);
+            mysqli_stmt_bind_param($stmt, "ss", $id);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+
             $row=$result->fetch_assoc();
             $name=$row["docname"];
             $email=$row["docemail"];
