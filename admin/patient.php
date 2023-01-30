@@ -158,7 +158,7 @@
                     if($_POST){
                         $keyword=$_POST["search"];
                         
-                        $sqlmain= "select * from patient where pemail='$keyword' or pname='$keyword' or pname like '$keyword%' or pname like '%$keyword' or pname like '%$keyword%' ";
+                        $sqlmain= "select * from patient where pemail=? or pname=? or pname like ? or pname like ? or pname like ? ";
                     }else{
                         $sqlmain= "select * from patient order by pid desc";
 
@@ -210,9 +210,11 @@
                         <tbody>
                         
                             <?php
-
-                                
-                                $result= $database->query($sqlmain);
+      
+                                $stmt= $database->mysqli_prepare($sqlmain);
+                                mysqli_stmt_bind_param($stmt, "ss", $keyword);
+                                mysqli_stmt_execute($stmt);
+                                $result = mysqli_stmt_get_result($stmt);
 
                                 if($result->num_rows==0){
                                     echo '<tr>
@@ -287,10 +289,14 @@
     <?php 
     if($_GET){
         
-        $id=$_GET["id"];
+        $id=htmlspecialchars($_GET["id"], ENT_QUOTES);
         $action=$_GET["action"];
-            $sqlmain= "select * from patient where pid='$id'";
-            $result= $database->query($sqlmain);
+            $sqlmain= "select * from patient where pid=?";
+            $stmt= $database->mysqli_prepare($sqlmain);
+            mysqli_stmt_bind_param($stmt, "ss", $id);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+        
             $row=$result->fetch_assoc();
             $name=$row["pname"];
             $email=$row["pemail"];
