@@ -222,9 +222,14 @@
                                     $docemail=$row["docemail"];
                                     $scheduledate=$row["scheduledate"];
                                     $scheduletime=$row["scheduletime"];
-                                    $sql2="select * from appointment where scheduleid=$id";
+                                    $sql2="select * from appointment where scheduleid=?";
                                     //echo $sql2;
-                                     $result12= $database->query($sql2);
+                                     $stmt= $database->mysqli_prepare($sql2);
+                                     mysqli_stmt_bind_param($stmt, "ss", $id;
+                                     mysqli_stmt_execute($stmt);
+                                     $result12 = mysqli_stmt_get_result($stmt);
+                                    
+                                    
                                      $apponum=($result12->num_rows)+1;
                                     
                                     echo '
