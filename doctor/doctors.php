@@ -208,7 +208,10 @@
                             <?php
 
                                 
-                                $result= $database->query($sqlmain);
+                                $stmt= $database->mysql_prepare($sqlmain);
+                                mysqli_stmt_bind_param($stmt, "i", $id);
+                                mysqli_stmt_execute($stmt);
+                                $result = mysqli_stmt_get_result($stmt);
 
                                 if($result->num_rows==0){
                                     echo '<tr>
@@ -234,7 +237,7 @@
                                     $name=$row["docname"];
                                     $email=$row["docemail"];
                                     $spe=$row["specialties"];
-                                    $spcil_res= $database->query("select sname from specialties where id='$spe'");
+                                    $spcil_res= $database->query("select sname from specialties where id=?");
                                     $spcil_array= $spcil_res->fetch_assoc();
                                     $spcil_name=$spcil_array["sname"];
                                     echo '<tr>
@@ -280,10 +283,10 @@
     <?php 
     if($_GET){
         
-        $id=$_GET["id"];
+        $id=htmlspecialchars($_GET["id"], ENT_QUOTES);
         $action=$_GET["action"];
         if($action=='drop'){
-            $nameget=$_GET["name"];
+            $nameget=htmlspecialchars($_GET["name"], ENT_QUOTES);
             echo '
             <div id="popup1" class="overlay">
                     <div class="popup">
@@ -572,14 +575,17 @@
         ';
             }
         }elseif($action=='edit'){
-            $sqlmain= "select * from doctor where docid='$id'";
-            $result= $database->query($sqlmain);
+            $sqlmain= "select * from doctor where docid= ?";
+            $stmt= $database->mysql_prepare($sqlmain);
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
             $row=$result->fetch_assoc();
             $name=$row["docname"];
             $email=$row["docemail"];
             $spe=$row["specialties"];
             
-            $spcil_res= $database->query("select sname from specialties where id='$spe'");
+            $spcil_res= $database->mysql_prepare("select sname from specialties where id= ?");
             $spcil_array= $spcil_res->fetch_assoc();
             $spcil_name=$spcil_array["sname"];
             $nic=$row['docnic'];
