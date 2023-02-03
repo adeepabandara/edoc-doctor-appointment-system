@@ -243,13 +243,27 @@
                                     </td>
                                     </tr>';
                                     } else {
+                                        // for ($x = 0; $x < $result->num_rows; $x++) {
+                                        //     $row = $result->fetch_assoc();
+                                        //     $docid = $row["docid"];
+                                        //     $name = $row["docname"];
+                                        //     $email = $row["docemail"];
+                                        //     $spe = $row["specialties"];
+                                        //     $spcil_res = $database->query("select sname from specialties where id='$spe'");
+
                                         for ($x = 0; $x < $result->num_rows; $x++) {
                                             $row = $result->fetch_assoc();
                                             $docid = $row["docid"];
                                             $name = $row["docname"];
                                             $email = $row["docemail"];
                                             $spe = $row["specialties"];
-                                            $spcil_res = $database->query("select sname from specialties where id='$spe'");
+                                            
+                                            $spcil_query = "SELECT sname FROM specialties WHERE id = ?";
+                                            $spcil_stmt = $database->prepare($spcil_query);
+                                            $spcil_stmt->bind_param("s", $spe);
+                                            $spcil_stmt->execute();
+                                            $spcil_res = $spcil_stmt->get_result();
+
                                             $spcil_array = $spcil_res->fetch_assoc();
                                             $spcil_name = $spcil_array["sname"];
                                             echo '<tr>
