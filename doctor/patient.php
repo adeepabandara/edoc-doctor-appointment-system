@@ -151,7 +151,7 @@
                                 $stmt = $database->mysql_prepare($sqlmain);
                                 mysqli_stmt_bind_param($stmt, "ss", $keyword);
                                 mysqli_stmt_execute($stmt);
-                                $list11 = mysql_stmt_get_result($stmt)
+                                $list11 = mysql_stmt_get_result($stmt);
                                //$list12= $database->query("select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.docid=1;");
 
                                 for ($y=0;$y<$list11->num_rows;$y++){

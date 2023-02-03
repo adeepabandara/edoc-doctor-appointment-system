@@ -225,7 +225,7 @@
                                     $sql2="select * from appointment where scheduleid=?";
                                     //echo $sql2;
                                      $stmt= $database->mysqli_prepare($sql2);
-                                     mysqli_stmt_bind_param($stmt, "ss", $id;
+                                     mysqli_stmt_bind_param($stmt, "ss", $id);
                                      mysqli_stmt_execute($stmt);
                                      $result12 = mysqli_stmt_get_result($stmt);
                                     

@@ -227,7 +227,13 @@
 
                                     <?php
 
-                                    $result = $database->query($sqlmain);
+                                    // $result = $database->query($sqlmain);
+
+                                    $stmt = $database->prepare($sqlmain);
+                                    $stmt->bind_param("s", $keyword);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+
                                     if ($result->num_rows == 0) {
                                         echo '<tr>
                                     <td colspan="4">
