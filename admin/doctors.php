@@ -673,7 +673,7 @@
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <input type="text" name="name" class="input-text" placeholder="Doctor Name" value="' . $htmlspecialchars($name) . '" required><br>
+                                            <input type="text" name="name" class="input-text" placeholder="Doctor Name" value="' . htmlspecialchars($name) . '" required><br>
                                         </td>
                                         
                                     </tr>
