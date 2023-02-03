@@ -304,7 +304,7 @@
                 </div>
             </div>
             ';
-            
+
         } elseif ($action == 'view') {
             $sqlmain = "select * from patient where pid=?";
             $stmt = $database->prepare($sqlmain);
@@ -457,7 +457,7 @@
                     <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
                     <tr>
                             <td class="label-td" colspan="2">' .
-                    htmlspecialchars($errorlist[$error_1])
+                    htmlspecialchars($errorlist[$error_1], ENT_QUOTES, 'UTF-8')
 
                     . '</td>
                                     </tr>
