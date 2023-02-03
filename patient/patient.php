@@ -174,13 +174,7 @@
 
                         <?php
                         echo '<datalist id="patient">';
-                        // $list11 = $database->query($sqlmain);
-
-                        $stmt = $database->prepare($sqlmain);
-                        $stmt->bind_param("s", $keyword);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        $list11 = $result;
+                        $list11 = $database->query($sqlmain);
 
                         //$list12= $database->query("select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.docid=1;");
 
