@@ -227,12 +227,7 @@
 
                                     <?php
 
-                                    // $result = $database->query($sqlmain);
-
-                                    $stmt = $database->prepare($sqlmain);
-                                    $stmt->bind_param("s", $keyword);
-                                    $stmt->execute();
-                                    $result = $stmt->get_result();
+                                    $result = $database->query($sqlmain);
 
                                     if ($result->num_rows == 0) {
                                         echo '<tr>
@@ -322,7 +317,7 @@
                             
                         </div>
                         <div style="display: flex;justify-content: center;">
-                        <a href="delete-doctor.php?id=' . $id . '" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
+                        <a href="delete-doctor.php?id=' . htmlspecialchars($id) . '" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
                         <a href="doctors.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
 
                         </div>
