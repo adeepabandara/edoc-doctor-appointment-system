@@ -414,7 +414,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    P-' . $id . '<br><br>
+                                    P-' . htmlspecialchars($id) . '<br><br>
                                 </td>
                                 
                             </tr>
@@ -427,7 +427,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    ' . $name . '<br><br>
+                                    ' . htmlspecialchars($name) . '<br><br>
                                 </td>
                                 
                             </tr>
@@ -438,7 +438,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                ' . $email . '<br><br>
+                                ' . htmlspecialchars($email) . '<br><br>
                                 </td>
                             </tr>
                             <tr>
@@ -448,7 +448,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                ' . $nic . '<br><br>
+                                ' . htmlspecialchars($nic) . '<br><br>
                                 </td>
                             </tr>
                             <tr>
@@ -458,7 +458,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                ' . $tele . '<br><br>
+                                ' . htmlspecialchars($tele) . '<br><br>
                                 </td>
                             </tr>
                             <tr>
@@ -469,7 +469,7 @@
                             </tr>
                             <tr>
                             <td class="label-td" colspan="2">
-                            ' . $address . '<br><br>
+                            ' . htmlspecialchars($address) . '<br><br>
                             </td>
                             </tr>
                             <tr>
@@ -480,7 +480,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    ' . $dob . '<br><br>
+                                    ' . htmlspecialchars($dob) . '<br><br>
                                 </td>
                                 
                             </tr>
