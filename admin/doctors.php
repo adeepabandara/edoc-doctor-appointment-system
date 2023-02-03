@@ -649,20 +649,20 @@
                                     <tr>
                                         <td>
                                             <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">Edit Doctor Details.</p>
-                                        Doctor ID : ' . $id . ' (Auto Generated)<br><br>
+                                        Doctor ID : ' . htmlspecialchars($id) . ' (Auto Generated)<br><br>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
                                             <form action="edit-doc.php" method="POST" class="add-new-form">
                                             <label for="Email" class="form-label">Email: </label>
-                                            <input type="hidden" value="' . $id . '" name="id00">
-                                            <input type="hidden" name="oldemail" value="' . $email . '" >
+                                            <input type="hidden" value="' . htmlspecialchars($id) . '" name="id00">
+                                            <input type="hidden" name="oldemail" value="' . htmlspecialchars($email) . '" >
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                        <input type="email" name="email" class="input-text" placeholder="Email Address" value="' . $email . '" required><br>
+                                        <input type="email" name="email" class="input-text" placeholder="Email Address" value="' . htmlspecialchars($email) . '" required><br>
                                         </td>
                                     </tr>
                                     <tr>
@@ -673,7 +673,7 @@
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <input type="text" name="name" class="input-text" placeholder="Doctor Name" value="' . $name . '" required><br>
+                                            <input type="text" name="name" class="input-text" placeholder="Doctor Name" value="' . $htmlspecialchars($name) . '" required><br>
                                         </td>
                                         
                                     </tr>
@@ -685,7 +685,7 @@
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <input type="text" name="nic" class="input-text" placeholder="NIC Number" value="' . $nic . '" required><br>
+                                            <input type="text" name="nic" class="input-text" placeholder="NIC Number" value="' . htmlspecialchars($nic) . '" required><br>
                                         </td>
                                     </tr>
                                     <tr>
@@ -695,12 +695,12 @@
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <input type="tel" name="Tele" class="input-text" placeholder="Telephone Number" value="' . $tele . '" required><br>
+                                            <input type="tel" name="Tele" class="input-text" placeholder="Telephone Number" value="' . htmlspecialchars($tele) . '" required><br>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <label for="spec" class="form-label">Choose specialties: (Current' . $spcil_name . ')</label>
+                                            <label for="spec" class="form-label">Choose specialties: (Current' . htmlspecialchars($spcil_name) . ')</label>
                                             
                                         </td>
                                     </tr>
