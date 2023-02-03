@@ -14,19 +14,28 @@ if ($_POST) {
     $tele = $_POST['Tele'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
-    $id = $_POST['id00'];
+    // $id = $_POST['id00'];
+    $id = htmlspecialchars($_POST['id00'], ENT_QUOTES, 'UTF-8');
 
     if ($password == $cpassword) {
         $error = '3';
         $result = $database->query("select doctor.docid from doctor inner join webuser on doctor.docemail=webuser.email where webuser.email='$email';");
         //$resultqq= $database->query("select * from doctor where docid='$id';");
+        // if ($result->num_rows == 1) {
+        //     $id2 = $result->fetch_assoc()["docid"];
+        // } else {
+        //     $id2 = $id;
+        // }
+
+        // echo $id2 . "jdfjdfdh";
+
         if ($result->num_rows == 1) {
-            $id2 = $result->fetch_assoc()["docid"];
+            $id2 = htmlspecialchars($result->fetch_assoc()["docid"], ENT_QUOTES, 'UTF-8');
         } else {
             $id2 = $id;
         }
+        echo htmlspecialchars($id2 . "jdfjdfdh", ENT_QUOTES, 'UTF-8');
 
-        echo $id2 . "Text";
         if ($id2 != $id) {
             $error = '1';
             //$resultqq1= $database->query("select * from doctor where docemail='$email';");
