@@ -19,7 +19,14 @@ if ($_POST) {
 
     if ($password == $cpassword) {
         $error = '3';
-        $result = $database->query("select doctor.docid from doctor inner join webuser on doctor.docemail=webuser.email where webuser.email='$email';");
+        // $result = $database->query("select doctor.docid from doctor inner join webuser on doctor.docemail=webuser.email where webuser.email='$email';");
+
+        $query = "SELECT doctor.docid FROM doctor INNER JOIN webuser ON doctor.docemail = webuser.email WHERE webuser.email = ?";
+        $stmt = $database->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
         //$resultqq= $database->query("select * from doctor where docid='$id';");
         // if ($result->num_rows == 1) {
         //     $id2 = $result->fetch_assoc()["docid"];
@@ -60,8 +67,13 @@ if ($_POST) {
             $tele = mysqli_real_escape_string($database, $tele);
             $spec = mysqli_real_escape_string($database, $spec);
             
-            $sql1 = "UPDATE doctor SET docemail='$email', docname='$name', docpassword='$password', docnic='$nic', doctel='$tele', specialties='$spec' WHERE docid=$id ;";
-            $database->query($sql1);
+            // $sql1 = "UPDATE doctor SET docemail='$email', docname='$name', docpassword='$password', docnic='$nic', doctel='$tele', specialties='$spec' WHERE docid=$id ;";
+            // $database->query($sql1);
+
+            $sql1 = "UPDATE doctor SET docemail = ?, docname = ?, docpassword = ?, docnic = ?, doctel = ?, specialties = ? WHERE docid = ?";
+            $stmt = $database->prepare($sql1);
+            $stmt->bind_param("ssssssi", $email, $name, $password, $nic, $tele, $spec, $id);
+            $stmt->execute();
             
             $oldemail = mysqli_real_escape_string($database, $oldemail);
             $sql1 = "UPDATE webuser SET email='$email' WHERE email='$oldemail' ;";
